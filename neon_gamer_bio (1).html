@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYPHER_STREAM - Link Bio</title>
+    <style>
+        :root {
+            --neon-blue: #00f5ff;
+            --neon-purple: #bf00ff;
+            --neon-pink: #ff0080;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --glow-intensity: 0 0 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            color: var(--neon-blue);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 245, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+            text-shadow: var(--glow-intensity) var(--neon-blue);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: var(--glow-intensity) var(--neon-blue); }
+            to { text-shadow: var(--glow-intensity) var(--neon-purple), 0 0 40px var(--neon-blue); }
+        }
+
+        .profile-title {
+            font-size: 1rem;
+            color: var(--neon-purple);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .profile-bio {
+            color: #888;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+
+        .links-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .link-btn {
+            display: block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, rgba(0, 245, 255, 0.1), rgba(191, 0, 255, 0.1));
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            text-decoration: none;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .link-btn:hover::before {
+            left: 100%;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 10px 20px rgba(0, 245, 255, 0.3),
+                inset 0 0 20px rgba(0, 245, 255, 0.1);
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
+        }
+
+        .link-btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 5px 10px rgba(0, 245, 255, 0.3),
+                inset 0 0 10px rgba(0, 245, 255, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--neon-blue);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--neon-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--neon-blue);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--neon-blue);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 480px) {
+            .profile-name {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+            
+            .container {
+                padding: 1rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    
+    <div class="container">
+        <div class="profile-section">
+            <h1 class="profile-name">CYPHER_STREAM</h1>
+            <p class="profile-title">Pro Gamer • Content Creator</p>
+            <div class="profile-bio">
+                Elite player dominating the digital battlefield. Join my stream for epic gameplay, tips, and community vibes. Level up with me! 🎮
+            </div>
+        </div>
+
+        <div class="links-section">
+            <a href="#" class="link-btn">🔴 Live Stream</a>
+            <a href="#" class="link-btn">📺 YouTube Channel</a>
+            <a href="#" class="link-btn">🎯 Gaming Setup</a>
+            <a href="#" class="link-btn">💎 Exclusive Content</a>
+            <a href="#" class="link-btn">🛒 Merch Store</a>
+            <a href="#" class="link-btn">💬 Discord Server</a>
+        </div>
+
+        <div class="social-links">
+            <a href="#" class="social-btn">T</a>
+            <a href="#" class="social-btn">I</a>
+            <a href="#" class="social-btn">Y</a>
+            <a href="#" class="social-btn">D</a>
+        </div>
+    </div>
+</body>
+</html>
